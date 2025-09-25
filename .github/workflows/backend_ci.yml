@@ -128,17 +128,17 @@ jobs:
     - name: Login to Azure Container Registry
       run: az acr login --name ${{ env.ACR_LOGIN_SERVER }}
 
-    # Build and Push Docker image for Product Service
+    # Build and Push Docker image for Product Service (9.2c)
     - name: Build and Push Product Service Image
       run: |
-        docker build -t ${{ env.ACR_LOGIN_SERVER }}/product_service:latest ./backend/product_service/
-        docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:latest
+        docker build -t ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} ./backend/product_service/
+        docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }}
 
-    # Build and Push Docker image for Order Service
+    # Build and Push Docker image for Order Service (9.2c)
     - name: Build and Push Order Service Image
       run: |
-        docker build -t ${{ env.ACR_LOGIN_SERVER }}/order_service:latest ./backend/order_service/
-        docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
+        docker build -t ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} ./backend/order_service/
+        docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }}
 
     # Logout from Azure for security (runs even if image push fails)
     - name: Logout from Azure
